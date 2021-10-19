@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+  dlna:
+    build: ./
+    image: serviio
+    container_name: serviio
+    volumes:
+      - /opt/MediaFiles/Music:/media/serviio/Music
+      #- /opt/serviio/config:/opt/serviio/config
+      - /opt/serviio/library:/opt/serviio/library
+      - /opt/serviio/plugins:/opt/serviio/plugins
+      - /opt/serviio/log:/opt/serviio/log
+    network_mode: "host"
+    restart: unless-stopped
