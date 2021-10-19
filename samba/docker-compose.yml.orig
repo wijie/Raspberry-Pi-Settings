@@ -1,0 +1,35 @@
+version: "3.7"
+
+services:
+  samba:
+    image: "dperson/samba:aarch64"
+    container_name: samba
+    environment:
+       TZ: "Asia/Tokyo"
+       WORKGROUP: "WORKGROUP"
+    networks:
+       - default
+    ports:
+      # - "137:137/udp"
+      # - "138:138/udp"
+      # - "139:139/tcp"
+      - "445:445/tcp"
+    tmpfs:
+      - /tmp
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    volumes:
+      - /misc/usbstick:/mnt1:z
+        #- /misc/MediaServer:/mnt2:z
+    command: >
+      -g "force user = user"
+      -g "force group = group"
+      -s "usbstick;/mnt1;yes;no;yes"
+      #-s "MediaServer;/mnt2;yes;no;no;user"
+      -u "user;passwd"
+      -r
+
+networks:
+  default:
+
